@@ -10,4 +10,10 @@ Developed and tested for *Raspberry Pi 4b*. May work on other linux devices, use
 - *OS:* 64 Bit Raspberry Pi OS - Lite version (Full version should work as well)
     - _Helpful tip:_ Enable SSH with password and guest access if you are setting up headless.
 
-### tesing git (can remove)
+### Setup
+
+First install sub-modules
+
+```cmd
+git submodule update --init --recursive
+```
