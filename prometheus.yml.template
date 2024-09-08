@@ -1,4 +1,8 @@
 global:
+  # Do not scrape more frequently than 30m or your IP will be rate limited
+  # Offical Ookla Technical Services suggestion was:
+  #   "For scheduling, once an hour and preferably not on the :00."
+  #   "If running on demand, multiple times are acceptable."
   scrape_interval: 30m
   scrape_timeout: 10m
 
