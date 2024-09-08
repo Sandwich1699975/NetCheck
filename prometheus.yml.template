@@ -1,0 +1,14 @@
+global:
+  scrape_interval: 30m
+  scrape_timeout: 10m
+
+scrape_configs:
+  - job_name: 'speedtest-exporter'
+    static_configs:
+      - targets: ['speedtest-exporter:9798']
+
+remote_write:
+  - url: {{URL}}
+    basic_auth:
+      username: {{USERNAME}}
+      password: {{API_TOKEN}}

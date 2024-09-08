@@ -1,3 +1,10 @@
+# Vscode config
+
+.vscode/
+
+# Actual prometheus files with user login data
+prometheus.yml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

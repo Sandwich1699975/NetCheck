@@ -1,0 +1,22 @@
+services:
+  speedtest-exporter:
+    image: ghcr.io/miguelndecarvalho/speedtest-exporter
+    container_name: speedtest-exporter
+    # - SPEEDTEST_PORT=<speedtest-port> #optional, but reccomended against
+    # - SPEEDTEST_SERVER=<server-id> #optional, but reccomended against
+    ports:
+      - 9798:9798
+    restart: unless-stopped
+
+  prometheus:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: prometheus
+    ports:
+      - '9090:9090' # Expose Prometheus on port 9090
+    env_file:
+      - .env
+networks:
+  default:
+    driver: bridge # Ensure both services are on the same network
