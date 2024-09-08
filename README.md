@@ -28,13 +28,15 @@ Create a GrafanaCloud dashboard with `<FINALISE A .JSON TEMPLATE HERE>` (temp: u
 
 Check you have the device prerequisites listed above
 
-Install docker if you haven't already
+1. Install docker if you haven't already
 
 ```terminal
 sudo apt install docker
 ```
 
-Then run docker setup from project root in detached mode. 
+2. Add in your Grafana details into `.env`
+
+3. Then run docker setup from project root in detached mode. 
 
 ```terminal
 docker-compose up -d
