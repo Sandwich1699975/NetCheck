@@ -22,22 +22,41 @@ Developed and tested for *Raspberry Pi 4b*. May work on other linux devices, not
 
 #### Grafana Setup
 
-Create a GrafanaCloud dashboard with `<FINALISE A .JSON TEMPLATE HERE>` (temp: use [this](https://github.com/MiguelNdeCarvalho/speedtest-exporter/blob/main/Dashboard/Speedtest-Exporter.json))
+1. Create a GrafanaCloud dashboard with `<FINALISE A .JSON TEMPLATE HERE>` (temp: use [this](https://github.com/MiguelNdeCarvalho/speedtest-exporter/blob/main/Dashboard/Speedtest-Exporter.json))
+
+2. Create a Prometheus account
 
 #### Client Setup
 
 Check you have the device prerequisites listed above
 
-1. Install docker if you haven't already
+1. Clone the repository
+
+```terminal
+git clone https://github.com/Sandwich1699975/NetCheck.git
+cd NetCheck
+```
+
+2. Install docker if you haven't already.
+Use your respective package manager/install option
 
 ```terminal
 sudo apt install docker
 ```
-
-2. Add in your Grafana details into `.env`
-
-3. Then run docker setup from project root in detached mode. 
+3. Run the one time setup script to generate the `.env` file
 
 ```terminal
-docker-compose up -d
+bash setup.sh
+```
+
+4. Add in your Grafana details into `.env`
+
+```terminal 
+nano .env
+```
+
+5. Then run docker setup from project root in detached mode. 
+
+```terminal
+docker-compose up -d --build
 ```
