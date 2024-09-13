@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 
+
 from string import Template
 import logging
 import os
@@ -67,8 +68,9 @@ def substitute_prometheus() -> bool:
     try:
         SUBSTITUTED_CONTENT = TEMPLATE_PROMETHEUS.substitute(template_mapping)
     except KeyError as E:
-        logging.error(E)
-        logging.error(f"{PATH_PROMETHEUS_TEMPLATE} could not be substituted")
+        logger.error(f"{PATH_PROMETHEUS_TEMPLATE} could not be substituted")
+        logger.error(f"KeyError: {E}")
+        return False
 
     if not os.path.isfile(PATH_PROMETHEUS):
         logger.info(f"Creating {PATH_PROMETHEUS}")
