@@ -43,7 +43,9 @@ def check_env() -> bool:
 
 def substitute_prometheus() -> bool:
     PATH_PROMETHEUS = "prometheus.yml"
-    PATH_PROMETHEUS_TEMPLATE = "prometheus.yml.template"
+    PATH_PROMETHEUS_TEMPLATE = os.path.join(
+        "templates", "prometheus.yml.template"
+    )
 
     # Check template file exists
     if not os.path.isfile(PATH_PROMETHEUS_TEMPLATE):

@@ -5,7 +5,7 @@ COPY . /app
 RUN pip install -r requirements.txt
 
 # Run setup file to create prometheus.yml
-RUN python setup.py
+RUN python docker-setup.py
 
 # Expose port for debugging
 EXPOSE 5678

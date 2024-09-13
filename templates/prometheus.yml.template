@@ -3,6 +3,7 @@ global:
   # Offical Ookla Technical Services suggestion was:
   #   "For scheduling, once an hour and preferably not on the :00."
   #   "If running on demand, multiple times are acceptable."
+  # NOTE Prometheus will push to Grafana after `scrape_interval` time
   scrape_interval: 1h
   scrape_timeout: 5m
 
