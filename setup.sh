@@ -43,7 +43,7 @@ check_file_exists "$PATH_ENV_TEMPLATE"
 # Check if the destination file exists
 if [ -f "$PATH_ENV_DESTINATION" ]; then
     echo "'$PATH_ENV_DESTINATION' already exists"
-    stop_env_tracking "$PATH_ENV_DESTINATION"
+    # stop_env_tracking "$PATH_ENV_DESTINATION"
     prompt_overwrite
 else
     # Copy the source file to the destination
@@ -56,5 +56,5 @@ else
         >&2 echo "Error: File could not be copied."
         exit 1
     fi
-    stop_env_tracking "$PATH_ENV_DESTINATION"
+    # stop_env_tracking "$PATH_ENV_DESTINATION"
 fi
