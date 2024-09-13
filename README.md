@@ -37,12 +37,12 @@ git clone https://github.com/Sandwich1699975/NetCheck.git
 cd NetCheck
 ```
 
-2. Install docker if you haven't already.
-Use your respective package manager/install option
+2. Install `docker-compose` if you haven't got it already.
 
-```terminal
-sudo apt install docker
-```
+TODO, add a command that works for raspberry pi here
+
+See official docs: [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
+
 3. Run the one time setup script to generate the `.env` file
 
 ```terminal
