@@ -1,4 +1,4 @@
-# https://docs.docker.com/build/building/multi-stage/
+# Multistage docs:  https://docs.docker.com/build/building/multi-stage/
 FROM python:3.9-slim AS setup
 WORKDIR /app
 COPY . /app
