@@ -1,0 +1,3 @@
+[submodule "netcheck-api"]
+	path = netcheck-api
+	url = https://github.com/Sandwich1699975/netcheck-api
