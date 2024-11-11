@@ -1,9 +1,13 @@
 services:
-  speedtest-exporter:
-    image: ghcr.io/miguelndecarvalho/speedtest-exporter
-    container_name: speedtest-exporter
-    # - SPEEDTEST_PORT=<speedtest-port> #optional, but reccomended against
-    # - SPEEDTEST_SERVER=<server-id> #optional, but reccomended against
+  netcheck-exporter:
+    build:
+      context: ./netcheck-api
+      dockerfile: Dockerfile
+    container_name: netcheck-exporter
+    environment:
+      - PING_ADDRESS=8.8.8.8
+      # - SPEEDTEST_PORT=<speedtest-port> #optional, but recomended against
+      # - SPEEDTEST_SERVER=<server-id> #optional, but recomended against
     ports:
       - 9798:9798
     restart: unless-stopped
@@ -11,7 +15,7 @@ services:
   prometheus:
     build:
       context: .
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     container_name: prometheus
     ports:
       - '9090:9090' # Expose Prometheus on port 9090

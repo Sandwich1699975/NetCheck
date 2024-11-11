@@ -1,4 +1,8 @@
 # NetCheck
+
+> [!IMPORTANT]
+> Work In Progress
+
 A persistent network uptime and speed logging Grafana client intended for use on mutiple Raspberry Pis.
 Based on [MiguelNdeCarvalho/speedtest-exporter](https://github.com/MiguelNdeCarvalho/speedtest-exporter)
 

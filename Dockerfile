@@ -1,4 +1,5 @@
-# Multistage docs:  https://docs.docker.com/build/building/multi-stage/
+# Multistage (FROM ... AS ...) docs:
+# https://docs.docker.com/build/building/multi-stage/
 FROM python:3.9-slim AS setup
 WORKDIR /app
 COPY . /app
@@ -13,7 +14,7 @@ EXPOSE 5678
 # Run official prometheus dockerfile
 # Equivalent dockerfile of
 # `$ docker run --name prometheus2 -d -p 127.0.0.1:9090:9090 prom/prometheus`
-FROM prom/prometheus
+FROM prom/prometheus AS prom
 
 # Copy over file from setup
 COPY --from=setup /app/prometheus.yml /etc/prometheus/prometheus.yml
