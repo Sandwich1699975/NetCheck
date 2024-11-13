@@ -46,6 +46,7 @@
         "type": "prometheus",
         "uid": "grafanacloud-prom"
       },
+      "description": "Displays health of ping over time",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -118,7 +119,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "datasource": {
@@ -126,8 +127,8 @@
             "uid": "grafanacloud-prom"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "custom_ping_latency_milliseconds",
+          "editorMode": "code",
+          "expr": "custom_ping_latency_milliseconds != -1",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -138,7 +139,7 @@
           "useBackend": false
         }
       ],
-      "title": "Up Status Timeline",
+      "title": "Ping Timeline",
       "type": "state-timeline"
     },
     {
@@ -146,6 +147,7 @@
         "type": "prometheus",
         "uid": "grafanacloud-prom"
       },
+      "description": "Displays if and when the internet tests have failed. Speed test values are cached as not to exceed rate limits from Ookla. ",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -175,10 +177,15 @@
                   "index": 0,
                   "text": "Up"
                 },
-                "NaN": {
-                  "color": "#C8F2C2",
+                "10": {
+                  "color": "super-light-red",
                   "index": 2,
-                  "text": "Cached"
+                  "text": "Cached Down"
+                },
+                "11": {
+                  "color": "super-light-green",
+                  "index": 3,
+                  "text": "Cached Up"
                 }
               },
               "type": "value"
@@ -243,7 +250,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "datasource": {
@@ -290,9 +297,8 @@
                 "destinationType": "string",
                 "enumConfig": {
                   "text": [
-                    "NaN",
-                    1,
-                    "0"
+                    "0",
+                    1
                   ]
                 },
                 "targetField": "speedtest_up"
@@ -323,12 +329,24 @@
             {
               "options": {
                 "0": {
+                  "color": "red",
                   "index": 1,
                   "text": "DOWN"
                 },
                 "1": {
+                  "color": "green",
                   "index": 0,
                   "text": "UP"
+                },
+                "10": {
+                  "color": "super-light-red",
+                  "index": 3,
+                  "text": "DOWN [CACHED]"
+                },
+                "11": {
+                  "color": "super-light-green",
+                  "index": 2,
+                  "text": "UP [CACHED]"
                 }
               },
               "type": "value"
@@ -378,7 +396,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "datasource": {
@@ -395,6 +413,25 @@
         }
       ],
       "title": "Status of the Speedtest-Exporter",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "string",
+                "enumConfig": {
+                  "text": [
+                    1
+                  ]
+                },
+                "targetField": "ping_up"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
       "type": "stat"
     },
     {
@@ -446,7 +483,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "disableTextWrap": false,
@@ -461,15 +498,6 @@
         }
       ],
       "title": "Last Speedtest",
-      "transformations": [
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [],
-            "fields": {}
-          }
-        }
-      ],
       "type": "stat"
     },
     {
@@ -520,17 +548,19 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "grafanacloud-prom"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "speedtest_server_id{instance=\"$instance\", job=\"$job\"}",
+          "expr": "speedtest_server_id{instance=\"$instance\", job=\"$job\"} and speedtest_up == 1",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -552,12 +582,24 @@
             {
               "options": {
                 "0": {
+                  "color": "red",
                   "index": 1,
                   "text": "DOWN"
                 },
                 "1": {
+                  "color": "green",
                   "index": 0,
                   "text": "UP"
+                },
+                "10": {
+                  "color": "super-light-red",
+                  "index": 2,
+                  "text": "DOWN [CACHED]"
+                },
+                "11": {
+                  "color": "super-light-green",
+                  "index": 3,
+                  "text": "UP [CACHED]"
                 }
               },
               "type": "value"
@@ -569,14 +611,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 0
-              },
-              {
-                "color": "green",
-                "value": 1
               }
             ]
           }
@@ -607,7 +641,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "datasource": {
@@ -675,7 +709,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "disableTextWrap": false,
@@ -754,7 +788,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "datasource": {
@@ -763,7 +797,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "custom_ping_latency_milliseconds{instance=\"$instance\", job=\"$job\"}",
+          "expr": "custom_ping_latency_milliseconds{instance=\"$instance\", job=\"$job\"} != -1",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -820,7 +854,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "datasource": {
@@ -829,7 +863,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "custom_packet_loss{instance=\"$instance\", job=\"$job\"}",
+          "expr": "custom_packet_loss{instance=\"$instance\", job=\"$job\"} != -1",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -900,17 +934,19 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "grafanacloud-prom"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "speedtest_download_bits_per_second{instance=\"$instance\", job=\"$job\"}*10^-6",
+          "expr": "(speedtest_download_bits_per_second{instance=\"$instance\", job=\"$job\"}!= -1)*10^-6",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -964,17 +1000,19 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "grafanacloud-prom"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "speedtest_upload_bits_per_second{instance=\"$instance\", job=\"$job\"}*10^-6",
+          "expr": "(speedtest_upload_bits_per_second{instance=\"$instance\", job=\"$job\"}!=-1)*10^-6",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1079,17 +1117,19 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "grafanacloud-prom"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "speedtest_download_bits_per_second{instance=\"$instance\", job=\"$job\"}*10^-6",
+          "expr": "(speedtest_download_bits_per_second{instance=\"$instance\", job=\"$job\"} != -1)*10^-6",
           "interval": "",
           "legendFormat": "Download Speed (Mbits/s)",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1180,17 +1220,19 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "grafanacloud-prom"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "speedtest_upload_bits_per_second{instance=\"$instance\", job=\"$job\"}*10^-6",
+          "expr": "(speedtest_upload_bits_per_second{instance=\"$instance\", job=\"$job\"}!=-1)*10^-6",
           "interval": "",
           "legendFormat": "Upload Speed (Mbits/s)",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1233,7 +1275,7 @@
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "auto",
+            "showPoints": "never",
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1305,7 +1347,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0-78571",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "datasource": {
@@ -1314,7 +1356,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "custom_ping_latency_milliseconds{instance=\"$instance\", job=\"$job\"}",
+          "expr": "custom_ping_latency_milliseconds{instance=\"$instance\", job=\"$job\"} != -1",
           "interval": "",
           "legendFormat": "Ping (ms)",
           "range": true,
@@ -1341,7 +1383,7 @@
     }
   ],
   "preload": false,
-  "refresh": "1m",
+  "refresh": "5m",
   "schemaVersion": 40,
   "tags": [],
   "templating": {
@@ -1387,13 +1429,13 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Speedtest-Exporter Dashboard",
   "uid": "-fs18ztMz",
-  "version": 11,
+  "version": 14,
   "weekStart": ""
 }
