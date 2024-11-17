@@ -128,7 +128,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "custom_ping_latency_milliseconds != -1",
+          "expr": "custom_ping_latency_milliseconds{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"} != -1",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -205,7 +205,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__name__=\"ping_up\", instance=\"netcheck-exporter:9798\", job=\"netcheck-exporter\"}"
+              "options": "ping_up"
             },
             "properties": [
               {
@@ -217,7 +217,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "{__name__=\"speedtest_up\", instance=\"netcheck-exporter:9798\", job=\"netcheck-exporter\"}"
+              "options": "speedtest_up"
             },
             "properties": [
               {
@@ -258,8 +258,8 @@
             "uid": "grafanacloud-prom"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "ping_up",
+          "editorMode": "code",
+          "expr": "ping_up{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -275,8 +275,8 @@
             "uid": "grafanacloud-prom"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "speedtest_up",
+          "editorMode": "code",
+          "expr": "speedtest_up{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -405,7 +405,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "speedtest_up{instance=\"$instance\", job=\"$job\"}",
+          "expr": "speedtest_up{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"}",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -488,7 +488,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "timestamp(speedtest_up==1)*1000",
+          "expr": "timestamp(speedtest_up{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"}==1)*1000",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -557,7 +557,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "speedtest_server_id{instance=\"$instance\", job=\"$job\"} and speedtest_up == 1",
+          "expr": "speedtest_server_id{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"} and speedtest_up{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"} == 1",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -650,7 +650,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "ping_up{instance=\"$instance\", job=\"$job\"}",
+          "expr": "ping_up{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"}",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -714,7 +714,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "timestamp(ping_up==1)*1000",
+          "expr": "timestamp(ping_up{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"}==1)*1000",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "__auto",
@@ -805,7 +805,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "custom_ping_latency_milliseconds{instance=\"$instance\", job=\"$job\"} != -1",
+          "expr": "custom_ping_latency_milliseconds{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"} != -1",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -879,7 +879,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "custom_packet_loss{instance=\"$instance\", job=\"$job\"} != -1",
+          "expr": "custom_packet_loss{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"} != -1",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -967,7 +967,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "(speedtest_download_bits_per_second{instance=\"$instance\", job=\"$job\"}!= -1)*10^-6",
+          "expr": "(speedtest_download_bits_per_second{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"} != -1)*10^-6",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -1041,7 +1041,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "(speedtest_upload_bits_per_second{instance=\"$instance\", job=\"$job\"}!=-1)*10^-6",
+          "expr": "(speedtest_upload_bits_per_second{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"}!=-1)*10^-6",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -1073,7 +1073,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "thresholds",
+            "seriesBy": "last"
           },
           "custom": {
             "axisBorderShow": false,
@@ -1165,7 +1166,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "(speedtest_download_bits_per_second{instance=\"$instance\", job=\"$job\"} != -1)*10^-6",
+          "expr": "(speedtest_download_bits_per_second{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"} != -1)*10^-6",
           "interval": "",
           "legendFormat": "Download Speed (Mbits/s)",
           "range": true,
@@ -1271,7 +1272,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "(speedtest_upload_bits_per_second{instance=\"$instance\", job=\"$job\"}!=-1)*10^-6",
+          "expr": "(speedtest_upload_bits_per_second{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"}!=-1)*10^-6",
           "interval": "",
           "legendFormat": "Upload Speed (Mbits/s)",
           "range": true,
@@ -1289,7 +1290,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "thresholds",
+            "seriesBy": "last"
           },
           "custom": {
             "axisBorderShow": false,
@@ -1398,7 +1400,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "custom_ping_latency_milliseconds{instance=\"$instance\", job=\"$job\"} != -1",
+          "expr": "custom_ping_latency_milliseconds{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"} != -1",
           "interval": "",
           "legendFormat": "Ping (ms)",
           "range": true,
@@ -1437,6 +1439,7 @@
         },
         "datasource": "grafanacloud-prom",
         "definition": "label_values(speedtest_up, instance)",
+        "hide": 2,
         "includeAll": false,
         "label": "Instance",
         "name": "instance",
@@ -1456,6 +1459,7 @@
         },
         "datasource": "grafanacloud-prom",
         "definition": "label_values(speedtest_up, job)",
+        "hide": 2,
         "includeAll": false,
         "label": "Job",
         "name": "job",
@@ -1467,17 +1471,36 @@
         "refresh": 1,
         "regex": "",
         "type": "query"
+      },
+      {
+        "current": {
+          "text": "MAC_TEST",
+          "value": "MAC_TEST"
+        },
+        "definition": "label_values(origin_prometheus)",
+        "description": "Name of the device exporting data",
+        "label": "Device Name",
+        "name": "device_name",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(origin_prometheus)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-13h",
-    "to": "now-12h"
+    "from": "now-15m",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Speedtest-Exporter Dashboard",
   "uid": "-fs18ztMz",
-  "version": 19,
+  "version": 20,
   "weekStart": ""
 }

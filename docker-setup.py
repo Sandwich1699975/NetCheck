@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-
+import re
 
 from string import Template
 import logging
@@ -10,7 +10,7 @@ load_dotenv(override=True)  # take environment variables from .env.
 logger = logging.getLogger(__name__)
 
 # Keys needed from .env for substitution
-ENV_VARS_NEEDED = {"URL", "USERNAME", "API_TOKEN"}
+ENV_VARS_NEEDED = {"URL", "USERNAME", "API_TOKEN", "DEVICE_NAME"}
 
 
 def check_env() -> bool:
@@ -19,6 +19,19 @@ def check_env() -> bool:
     Returns:
         bool: True if all of the variables are OK. False otherwise
     """
+    def _is_valid_variable(INPUT_STRING: str) -> bool:
+        """Checks that the env variable is valid
+
+        Args:
+            INPUT_STRING (str): The prospective variable
+
+        Returns:
+            bool: True if valid, False otherwise
+        """
+        # https://regex101.com/r/yfRDu6/2
+        REGEX = r'^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};\':"\\|,.<>\/?]+$'
+        return re.match(pattern=REGEX, string=INPUT_STRING) is not None
+
     something_wrong = False
 
     for env_var_name in ENV_VARS_NEEDED:
@@ -33,6 +46,9 @@ def check_env() -> bool:
             logger.error(
                 f"Blank .env variable: {env_var_name}. Please edit .env to define a value")
             something_wrong = True
+        elif (not _is_valid_variable(env_var_value)):
+            logger.error(
+                f"Invalid variable contents. Please use alphanumeric values only")
 
     if not something_wrong:
         logger.info(
@@ -86,7 +102,7 @@ def substitute_prometheus() -> bool:
     return True
 
 
-def main():
+def main() -> None:
     # Start logger
     # Copy format from speedtest image
     # https://github.com/MiguelNdeCarvalho/speedtest-exporter/blob/8e4a39b9c0282102a9868f43b60dc99465dd0974/src/exporter.py#L14

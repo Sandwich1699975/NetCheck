@@ -4,9 +4,12 @@ global:
   # Offical Ookla Technical Services suggestion was:
   #   "For scheduling, once an hour and preferably not on the :00."
   #   "If running on demand, multiple times are acceptable."
+  # By default, the python script caches data for one hour.
   # NOTE Prometheus will push to Grafana after `scrape_interval` time
   scrape_interval: 2m
   scrape_timeout: 1m
+  external_labels:
+    origin_prometheus: $DEVICE_NAME
 
 scrape_configs:
   - job_name: 'netcheck-exporter'
