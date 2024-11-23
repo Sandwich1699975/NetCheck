@@ -360,7 +360,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "datasource": {
@@ -609,7 +609,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "datasource": {
@@ -696,7 +696,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "disableTextWrap": false,
@@ -761,7 +761,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "datasource": {
@@ -854,7 +854,7 @@
         "textMode": "value",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "datasource": {
@@ -922,7 +922,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "disableTextWrap": false,
@@ -1009,7 +1009,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "datasource": {
@@ -1083,7 +1083,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "datasource": {
@@ -1171,7 +1171,7 @@
         "sizing": "auto",
         "text": {}
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "datasource": {
@@ -1245,7 +1245,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "datasource": {
@@ -1370,7 +1370,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "datasource": {
@@ -1476,7 +1476,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "datasource": {
@@ -1604,7 +1604,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.4.0-78678",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "datasource": {
@@ -1687,8 +1687,8 @@
       },
       {
         "current": {
-          "text": "Skynet",
-          "value": "Skynet"
+          "text": "",
+          "value": ""
         },
         "definition": "label_values(origin_prometheus)",
         "description": "Name of the device exporting data",
@@ -1745,13 +1745,13 @@
     ]
   },
   "time": {
-    "from": "2024-11-19T04:45:49.268Z",
-    "to": "2024-11-19T05:09:57.024Z"
+    "from": "now-1h",
+    "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Speedtest-Exporter Dashboard",
   "uid": "-fs18ztMz",
-  "version": 26,
+  "version": 27,
   "weekStart": ""
 }
