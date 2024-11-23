@@ -98,9 +98,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78678",
-      "repeat": "device_name",
-      "repeatDirection": "h",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "editorMode": "code",
@@ -260,9 +258,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78678",
-      "repeat": "device_name",
-      "repeatDirection": "h",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "editorMode": "code",
@@ -484,9 +480,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.4.0-78678",
-      "repeat": "device_name",
-      "repeatDirection": "h",
+      "pluginVersion": "11.4.0-79146",
       "targets": [
         {
           "editorMode": "code",
@@ -1131,8 +1125,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "#EAB839",
@@ -1206,8 +1199,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "#EAB839",
@@ -1330,8 +1322,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "yellow",
@@ -1437,8 +1428,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": null
+                "color": "red"
               },
               {
                 "color": "#EAB839",
@@ -1547,8 +1537,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -1687,8 +1676,8 @@
       },
       {
         "current": {
-          "text": "",
-          "value": ""
+          "text": "MAC_TEST",
+          "value": "MAC_TEST"
         },
         "definition": "label_values(origin_prometheus)",
         "description": "Name of the device exporting data",
@@ -1752,6 +1741,6 @@
   "timezone": "",
   "title": "Speedtest-Exporter Dashboard",
   "uid": "-fs18ztMz",
-  "version": 27,
+  "version": 30,
   "weekStart": ""
 }
