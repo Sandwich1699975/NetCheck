@@ -9,9 +9,13 @@
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 ![Summary Dashboard](assets/summary.png)
-Caption: A screenshot of the summary section of the Grafana dashboard with 2 devices reporting
+
+> A screenshot of the summary section of the Grafana dashboard with 2 devices reporting
 
 ![Flowchart](assets/flowchart.svg)
+
+> A flowchart of systems used in a NetCheck setup
+
 
 NetCheck is persistent network uptime and speed logging Grafana exporter intended for use on mutiple Raspberry Pis.
 
