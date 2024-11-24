@@ -36,7 +36,7 @@ Developed and tested for *Raspberry Pi 4b*. May work on other linux devices, not
 I devleoped this on an arm based Mac and it also works fine. If you can run Docker you're probably fine
 
 - Software
-    - [Install `docker / docker compose`](https://docs.docker.com/compose/install/) if you haven't got it already. **If using raspberry pi** follow [theses official instructions](https://docs.docker.com/engine/install/debian/) and skip the Docker Desktop instruction just below
+    - [Install `docker / docker compose`](https://docs.docker.com/compose/install/) if you haven't got it already. **If using raspberry pi** follow [these official instructions](https://docs.docker.com/engine/install/debian/) and skip the Docker Desktop instruction just below
     - If you are using **Docker Desktop**, make sure `Docker-Desktop` is set to automatically open as a startup app if you plan to have this run automatically. I mean the entire app as well, not just the engine and container services. 
 
 
@@ -87,8 +87,8 @@ sudo docker compose up -d --build
 
 Where to access local servers when setup (can differ)
 
-- [Prometheus (`http://localhost:9090/`)](http://localhost:9090/)
-- [Speedtest Exporter (`http://localhost:9798/metrics`)](http://localhost:9798/metrics)
+- [Prometheus (`http://localhost:9090`)](http://localhost:9090)
+- [Speedtest Exporter (`http://localhost:9798`)](http://localhost:9798)
 
 
 ## Troubleshooting
