@@ -9,10 +9,7 @@
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 ![Summary Dashboard](assets/summary.png)
-Caption: A screenshot of the summary section of the Grafana dashboard with 2 devices reporting
-
-> [!IMPORTANT]
-> Work In Progress
+> Caption: A screenshot of the summary section of the Grafana dashboard with 2 devices reporting
 
 A persistent network uptime and speed logging Grafana client intended for use on mutiple Raspberry Pis.
 Based on [MiguelNdeCarvalho/speedtest-exporter](https://github.com/MiguelNdeCarvalho/speedtest-exporter)
@@ -29,13 +26,11 @@ Where to access local servers when setup (can differ)
 ### OS and Prerequisites 
 
 Developed and tested for *Raspberry Pi 4b*. May work on other linux devices, not sure.
-I devleoped this on an arm based Mac.
+I devleoped this on an arm based Mac and it also works fine. If you can run Docker you're probably fine
 
-- *OS:* 64 Bit Raspberry Pi OS - Lite version (Full version should work as well)
-    - _Helpful tip:_ Enable SSH with password and guest access if you are setting up headless.
 - *Software*
-    - [Install `docker-compose`](https://docs.docker.com/compose/install/) if you haven't got it already. I would highly reccomend installing it connected to a monitor. Headless seems to have connection issues. Perhaps because you can't accept the EULA and bypass the login screen? I'm open to suggestions here.
-    - Make sure `Docker-Desktop` is set to automatically open as a startup app if you plan to have this run automatically. I mean the entire app as well, not just the engine and container services.
+    - [Install `docker / docker compose`](https://docs.docker.com/compose/install/) if you haven't got it already. **If using raspberry pi** follow [the official instructions](https://docs.docker.com/engine/install/debian/) and skip the Docker Desktop instruction just below
+    - If you are using **Docker Desktop**, make sure `Docker-Desktop` is set to automatically open as a startup app if you plan to have this run automatically. I mean the entire app as well, not just the engine and container services. 
 
 
 ### Setup
@@ -74,7 +69,35 @@ nano .env
 4. Then run docker setup from project root in detached mode. 
 
 ```terminal
-docker-compose up -d --build
+sudo docker compose up -d --build
 ```
 
 Note that every time you add a new device, you need to refresh the Grafana page for it to appear in the variable field at the top
+
+### Troubleshooting
+
+```
+env file /home/username/NetCheck/.env not found: stat /home/username/NetCheck/.env: no such file or directory
+```
+
+Run `bash setup.sh` to generate `.env` file
+
+---
+
+```
+[+] Building 0.3s (4/4) FINISHED                                                   docker:default
+ => [netcheck-exporter internal] load build definition from Dockerfile                       0.1s
+ => => transferring dockerfile: 2B                                                           0.0s
+ => [prometheus internal] load build definition from Dockerfile                              0.1s
+ => => transferring dockerfile: 780B                                                         0.0s
+ => CANCELED [prometheus internal] load metadata for docker.io/prom/prometheus:latest        0.1s
+ => CANCELED [prometheus internal] load metadata for docker.io/library/python:3.9-slim       0.1s
+failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
+```
+
+You probably forgot to initialise the git submodules. Run:
+
+```terminal
+git submodule init
+git submodule update
+```
