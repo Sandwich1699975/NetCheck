@@ -46,6 +46,7 @@
         "type": "prometheus",
         "uid": "grafanacloud-prom"
       },
+      "description": "The average ping of the last scrape",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -206,6 +207,7 @@
         "type": "prometheus",
         "uid": "grafanacloud-prom"
       },
+      "description": "The download speed of the last scrape",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -277,7 +279,7 @@
         "type": "prometheus",
         "uid": "grafanacloud-prom"
       },
-      "description": "Displays if and when the internet tests have failed. Speed test values are cached as not to exceed rate limits from Ookla. ",
+      "description": "Displays if and when the internet tests have failed (Pings can fail if enough pings timeout). Speed test values are cached as not to exceed rate limits from Ookla. ",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -396,7 +398,7 @@
           "useBackend": false
         }
       ],
-      "title": "Up Status Timeline",
+      "title": "Success Status Timeline",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -428,6 +430,7 @@
         "type": "prometheus",
         "uid": "grafanacloud-prom"
       },
+      "description": "The download speed of the last scrape",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -508,6 +511,91 @@
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
+      },
+      "description": "Displays if and when the internet tests have failed. Speed test values are cached as not to exceed rate limits from Ookla. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "Down"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "Up"
+                },
+                "10": {
+                  "color": "super-light-red",
+                  "index": 2,
+                  "text": "Cached Down"
+                },
+                "11": {
+                  "color": "super-light-green",
+                  "index": 3,
+                  "text": "Cached Up"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ping_up"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Ping UP"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "speedtest_up"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Speedtest UP"
+              }
+            ]
+          }
+        ]
+      },
       "gridPos": {
         "h": 5,
         "w": 24,
@@ -515,11 +603,84 @@
         "y": 17
       },
       "id": 24,
-      "libraryPanel": {
-        "name": "Individual Summary",
-        "uid": "ae4dco7t17668b"
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "title": "Up Status Timeline"
+      "pluginVersion": "11.4.0-79146",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "ping_up{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "speedtest_up{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B",
+          "useBackend": false
+        }
+      ],
+      "title": "Success Status Timeline",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "string",
+                "enumConfig": {
+                  "text": [
+                    "0",
+                    1
+                  ]
+                },
+                "targetField": "speedtest_up"
+              },
+              {
+                "destinationType": "string",
+                "targetField": "ping_up"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "state-timeline"
     },
     {
       "datasource": {
@@ -619,7 +780,7 @@
           "refId": "A"
         }
       ],
-      "title": "Status of the Speedtest-Exporter",
+      "title": "Success status of the Speedtest-Exporter",
       "transformations": [
         {
           "id": "convertFieldType",
@@ -864,7 +1025,7 @@
           "refId": "A"
         }
       ],
-      "title": "Status of the Custom Ping",
+      "title": "Success status of the Custom Ping",
       "type": "stat"
     },
     {
@@ -943,7 +1104,7 @@
       },
       "id": 19,
       "panels": [],
-      "title": "Ping Gauges",
+      "title": "Ping and Packet loss",
       "type": "row"
     },
     {
@@ -951,7 +1112,7 @@
         "type": "prometheus",
         "uid": "grafanacloud-prom"
       },
-      "description": "The average ping of several pings in milliseconds",
+      "description": "The average ping of several pings in milliseconds (from last scrape)",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1030,6 +1191,154 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "thresholds",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Time",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 100,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed+area"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 20
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Packet Loss (%)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "custom.axisSoftMax",
+                "value": 1
+              },
+              {
+                "id": "custom.axisColorMode",
+                "value": "text"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 21,
+        "x": 3,
+        "y": 29
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "min"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.4.0-79146",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "custom_ping_latency_milliseconds{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"} != -1",
+          "interval": "",
+          "legendFormat": "Ping (ms)",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "custom_packet_loss{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"} != -1",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Packet Loss (%)",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Ping and Packet Loss",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
+      },
+      "description": "The packet loss estimate of several pings from last scrape",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "thresholds"
           },
           "mappings": [],
@@ -1058,8 +1367,8 @@
       "gridPos": {
         "h": 5,
         "w": 3,
-        "x": 3,
-        "y": 29
+        "x": 0,
+        "y": 34
       },
       "id": 13,
       "options": {
@@ -1102,11 +1411,11 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 39
       },
       "id": 8,
       "panels": [],
-      "title": "Speedtest Gauges",
+      "title": "Speed tests",
       "type": "row"
     },
     {
@@ -1125,7 +1434,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red"
+                "color": "red",
+                "value": null
               },
               {
                 "color": "#EAB839",
@@ -1145,7 +1455,7 @@
         "h": 5,
         "w": 3,
         "x": 0,
-        "y": 35
+        "y": 40
       },
       "id": 10,
       "options": {
@@ -1182,92 +1492,6 @@
       ],
       "title": "Download Speed",
       "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "grafanacloud-prom"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red"
-              },
-              {
-                "color": "#EAB839",
-                "value": 70
-              },
-              {
-                "color": "green",
-                "value": 100
-              }
-            ]
-          },
-          "unit": "Mbits"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 3,
-        "y": 35
-      },
-      "id": 12,
-      "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
-      },
-      "pluginVersion": "11.4.0-79146",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "grafanacloud-prom"
-          },
-          "editorMode": "code",
-          "exemplar": true,
-          "expr": "(speedtest_upload_bits_per_second{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"}!=-1)*10^-6",
-          "interval": "",
-          "legendFormat": "",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Upload Speed",
-      "type": "gauge"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 40
-      },
-      "id": 6,
-      "panels": [],
-      "title": "Graphics",
-      "type": "row"
     },
     {
       "datasource": {
@@ -1322,7 +1546,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red"
+                "color": "red",
+                "value": null
               },
               {
                 "color": "yellow",
@@ -1339,10 +1564,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 41
+        "h": 10,
+        "w": 11,
+        "x": 3,
+        "y": 40
       },
       "id": 2,
       "options": {
@@ -1428,7 +1653,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "red"
+                "color": "red",
+                "value": null
               },
               {
                 "color": "#EAB839",
@@ -1445,10 +1671,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 41
+        "h": 10,
+        "w": 10,
+        "x": 14,
+        "y": 40
       },
       "id": 3,
       "options": {
@@ -1493,105 +1719,52 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds",
-            "seriesBy": "last"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "Time",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 100,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "dashed+area"
-            }
+            "mode": "thresholds"
           },
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "red",
+                "value": null
               },
               {
                 "color": "#EAB839",
-                "value": 20
+                "value": 70
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "green",
+                "value": 100
               }
             ]
           },
-          "unit": "ms"
+          "unit": "Mbits"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Packet Loss (%)"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "percentunit"
-              },
-              {
-                "id": "custom.axisSoftMax",
-                "value": 1
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 24,
+        "h": 5,
+        "w": 3,
         "x": 0,
-        "y": 49
+        "y": 45
       },
-      "id": 4,
+      "id": 12,
       "options": {
-        "legend": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
-            "mean",
-            "max",
-            "min"
+            "lastNotNull"
           ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
       "pluginVersion": "11.4.0-79146",
       "targets": [
@@ -1602,30 +1775,28 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "custom_ping_latency_milliseconds{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"} != -1",
+          "expr": "(speedtest_upload_bits_per_second{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"}!=-1)*10^-6",
           "interval": "",
-          "legendFormat": "Ping (ms)",
+          "legendFormat": "",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "grafanacloud-prom"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "custom_packet_loss{instance=\"$instance\", job=\"$job\", origin_prometheus=\"$device_name\"} != -1",
-          "format": "time_series",
-          "instant": false,
-          "interval": "",
-          "legendFormat": "Packet Loss (%)",
-          "range": true,
-          "refId": "B"
         }
       ],
-      "title": "Ping and Packet Loss",
-      "type": "timeseries"
+      "title": "Upload Speed",
+      "type": "gauge"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 50
+      },
+      "id": 6,
+      "panels": [],
+      "title": "Graphics",
+      "type": "row"
     }
   ],
   "preload": false,
@@ -1676,8 +1847,8 @@
       },
       {
         "current": {
-          "text": "MAC_TEST",
-          "value": "MAC_TEST"
+          "text": "Skynet",
+          "value": "Skynet"
         },
         "definition": "label_values(origin_prometheus)",
         "description": "Name of the device exporting data",
@@ -1734,13 +1905,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Speedtest-Exporter Dashboard",
   "uid": "-fs18ztMz",
-  "version": 30,
+  "version": 32,
   "weekStart": ""
 }
