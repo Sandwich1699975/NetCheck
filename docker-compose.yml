@@ -23,6 +23,7 @@ services:
       - /prometheus
     env_file:
       - .env
+    restart: unless-stopped
 networks:
   default:
     driver: bridge # Ensure both services are on the same network
