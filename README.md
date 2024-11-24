@@ -9,27 +9,30 @@
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 ![Summary Dashboard](assets/summary.png)
-> Caption: A screenshot of the summary section of the Grafana dashboard with 2 devices reporting
+Caption: A screenshot of the summary section of the Grafana dashboard with 2 devices reporting
 
-A persistent network uptime and speed logging Grafana client intended for use on mutiple Raspberry Pis.
-Based on [MiguelNdeCarvalho/speedtest-exporter](https://github.com/MiguelNdeCarvalho/speedtest-exporter)
+![Flowchart](assets/flowchart.svg)
 
-## `localhost` Refferences
+NetCheck is persistent network uptime and speed logging Grafana exporter intended for use on mutiple Raspberry Pis.
 
-Where to access local servers when setup (can differ)
-
-- [Prometheus (`http://localhost:9090/`)](http://localhost:9090/)
-- [Speedtest Exporter (`http://localhost:9798/metrics`)](http://localhost:9798/metrics)
+Forked from [MiguelNdeCarvalho/speedtest-exporter](https://github.com/MiguelNdeCarvalho/speedtest-exporter)
 
 ## Instructions
 
 ### OS and Prerequisites 
 
+| OS | Compatability |
+| --- | :-: |
+| Linux Mint 21 | 🟩 |
+| MacOS | 🟩 |
+| 64 bit raspiOS lite | 🟩 |
+| Anything that runs Docker | Probably |
+
 Developed and tested for *Raspberry Pi 4b*. May work on other linux devices, not sure.
 I devleoped this on an arm based Mac and it also works fine. If you can run Docker you're probably fine
 
-- *Software*
-    - [Install `docker / docker compose`](https://docs.docker.com/compose/install/) if you haven't got it already. **If using raspberry pi** follow [the official instructions](https://docs.docker.com/engine/install/debian/) and skip the Docker Desktop instruction just below
+- Software
+    - [Install `docker / docker compose`](https://docs.docker.com/compose/install/) if you haven't got it already. **If using raspberry pi** follow [theses official instructions](https://docs.docker.com/engine/install/debian/) and skip the Docker Desktop instruction just below
     - If you are using **Docker Desktop**, make sure `Docker-Desktop` is set to automatically open as a startup app if you plan to have this run automatically. I mean the entire app as well, not just the engine and container services. 
 
 
@@ -60,21 +63,33 @@ git submodule update
 bash setup.sh
 ```
 
-3. Add in your Grafana details into `.env`
+3. Add your details into `.env`
 
 ```terminal 
 nano .env
 ```
 
-4. Then run docker setup from project root in detached mode. 
+4. Then run Docker compose from project root in detached mode. 
 
 ```terminal
 sudo docker compose up -d --build
 ```
 
-Note that every time you add a new device, you need to refresh the Grafana page for it to appear in the variable field at the top
+> [!NOTE]
+> Every time you add or turn on/off a device, you need to refresh the Grafana page for it to appear in the variable field at the top
 
-### Troubleshooting
+
+## `localhost` Refferences
+
+Where to access local servers when setup (can differ)
+
+- [Prometheus (`http://localhost:9090/`)](http://localhost:9090/)
+- [Speedtest Exporter (`http://localhost:9798/metrics`)](http://localhost:9798/metrics)
+
+
+## Troubleshooting
+
+### `.env not found` or `.env: no such file`
 
 ```
 env file /home/username/NetCheck/.env not found: stat /home/username/NetCheck/.env: no such file or directory
@@ -83,6 +98,8 @@ env file /home/username/NetCheck/.env not found: stat /home/username/NetCheck/.e
 Run `bash setup.sh` to generate `.env` file
 
 ---
+
+### `failed to solve: failed to read dockerfile:`
 
 ```
 [+] Building 0.3s (4/4) FINISHED                                                   docker:default
