@@ -21,3 +21,5 @@ remote_write:
     basic_auth:
       username: $USERNAME
       password: $API_TOKEN
+    queue_config:
+      retry_on_http_429: true
