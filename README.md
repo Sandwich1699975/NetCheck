@@ -19,7 +19,7 @@
 
 NetCheck is a persistent network uptime and speed-logging Grafana exporter intended for use on multiple Raspberry Pis. The intended audience of this software is IT professionals with at least a little experience with setting up and debugging CLI-based software.
 
-Forked from [MiguelNdeCarvalho/speedtest-exporter](https://github.com/MiguelNdeCarvalho/speedtest-exporter)
+API forked from [MiguelNdeCarvalho/speedtest-exporter](https://github.com/MiguelNdeCarvalho/speedtest-exporter)
 
 
 ## What is this and should I use this?
