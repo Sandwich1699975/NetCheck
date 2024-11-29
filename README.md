@@ -118,17 +118,6 @@ sudo docker compose up -d --build
 > [!NOTE]
 > Every time you add or turn on/off a device, you need to refresh the Grafana page for it to appear in the variable field at the top
 
-## Speedtest Distributor Design
-
-As Ookla is a free service, it rate limits it's users who abuse the service. Official reccomendations are to only allow one speedtest per IP per hour. 
-
-To abide by this limitation, NetCheck automatically schedules speedtests by using the Grafana Prometheus endpoint as a dedicated distributor by allowing each client to observe how many clients are currently online by just quering the `speedtest_up` history (the actual metric is mostly irrelevant).
-
-![Speedtest distributor information](assets/distributor.svg)
-
-> [!NOTE]
-> This design relies on the fact that Ookla allows tests 'on demand' rather than following an exact and strict regiment of 'one per hour per IP'. It also assumes the user is setting up NetCheck on the one LAN with a single WAP shared between all clients. Otherwise each client would be limited more than they need to be.
-
 
 ## `localhost` References
 
@@ -139,11 +128,6 @@ Where to access local servers when setup (can differ)
 
 
 ## Troubleshooting
-
-### My speedtests are failing
-
-- Make sure you have a seperate dashboard per WAN address.
-    - To avoid Ookla rate limiting of one test per IP per hour
 
 ### `.env not found` or `.env: no such file`
 
