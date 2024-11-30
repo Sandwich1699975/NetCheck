@@ -127,7 +127,7 @@ To abide by this limitation, NetCheck automatically schedules speedtests by usin
 ![Speedtest distributor information](assets/distributor.svg)
 
 > [!NOTE]
-> This design relies on the fact that Ookla allows tests 'on demand' rather than following an exact and strict regiment of 'one per hour per IP'. It also assumes the user is setting up NetCheck on the one LAN with a single WAP shared between all clients. Otherwise each client would be limited more than they need to be.
+> This design relies on the fact that Ookla allows tests 'on demand' rather than following an exact and strict regiment of 'one per hour per IP'. It also assumes the user is setting up NetCheck on the one LAN with a single WAN IP shared between all clients. Otherwise each client would be limited more than they need to be.
 
 
 ## `localhost` References
