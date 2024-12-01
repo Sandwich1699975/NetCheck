@@ -24,7 +24,9 @@ API forked from [MiguelNdeCarvalho/speedtest-exporter](https://github.com/Miguel
 
 ## What is this and should I use this?
 
-This software logs network information in different physical locations to help troubleshoot AP/switch-level outages. It's a one-time setup that does not integrate with any existing IT systems.
+This software logs network information from several devices in different physical locations to help troubleshoot AP/switch-level outages. It's a one-time setup that does not integrate with any existing IT systems.
+
+In simple terms: Load this software onto several devices (1-3x Raspberry Pis are optimal) and leave them around the building. Say for example, one in the office, one in the reception and one in a room where someone has complained about the slow internet. Then each of them will run: speed, latency and packet loss tests to monitor how the health of your network as seen by endpoint users who have connected to an AP. This helps to diagnose troublesome areas, faulty equiptment or possible network conjestion via AP bandwidth limiting.
 
 **Key Features:**
 
