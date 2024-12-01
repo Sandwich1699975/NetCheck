@@ -5,6 +5,8 @@ from string import Template
 import logging
 import os
 
+# Load the environment variables from the file for build.
+# Docker enviroment variables are runtime context by default
 load_dotenv(override=True)  # take environment variables from .env.
 
 logger = logging.getLogger(__name__)
