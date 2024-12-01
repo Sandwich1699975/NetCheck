@@ -11,6 +11,7 @@ services:
       # Variables in the .env file are REQUIRED to be edited or at least non-blank
       - PING_ADDRESS=8.8.8.8
       - DEBUG_MODE=false
+      - SPEEDTEST_CACHE_LAN_TIME=3600 # Duration inbetween tests (between all clients)
       # - SPEEDTEST_PORT=<speedtest-port> #optional, but recomended against
       # - SPEEDTEST_SERVER=<server-id> #optional, but recomended against
     ports:
