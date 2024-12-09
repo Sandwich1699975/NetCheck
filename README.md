@@ -101,9 +101,10 @@ I developed this on an arm-based Mac and it also works fine. If you can run Dock
 
 #### Grafana Setup
 
-1. Create a GrafanaCloud dashboard with [`Dashboard/Speedtest-Exporter.json`](https://github.com/Sandwich1699975/NetCheck/blob/main/Dashboard/Speedtest-Exporter.json)
-
-2. Create a Prometheus account
+1. Create a GrafanaCloud dashboard
+    1. Connect with Prometheus. Pick options so that you use Grafana Cloud, send data from your own device and avoid alloy (Leave other options as default)   
+    2. Take note of Prometheus URL, Username and Token
+    3. Import dashboard  [`Dashboard/Speedtest-Exporter.json`](https://github.com/Sandwich1699975/NetCheck/blob/main/Dashboard/Speedtest-Exporter.json)
 
 #### Client Setup
 
